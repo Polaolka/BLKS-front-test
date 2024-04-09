@@ -1,20 +1,49 @@
 import styled from "@emotion/styled";
 import { colors, mediaSizes } from "../../components/const";
-export const FooterStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: ${colors.mainDark};
-  gap: 15px;
-  @media screen and (min-width: ${mediaSizes.laptop}) {
-    padding: 0 15px 24px;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    width: auto;
-    display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
+export const FooterStyled = styled.footer`
+  padding-top: 20px;
+  padding-bottom: 20px;
+  /* position: fixed;
+  bottom: 0px; */
+
+
+  & ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+
+    opacity: 0.8;
+
+    @media screen and (min-width: ${mediaSizes.tablet}) {
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+
+  & li {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: ${colors.colorLigthText};
+
+    &:not(:last-child) {
+      @media screen and (min-width: ${mediaSizes.tablet}) {
+        padding-right: 10px;
+        border-right: 1px solid ${colors.colorLigthText};
+      }
+    }
+  }
+
+  & .name {
+    color: ${colors.colorGreen};
+    cursor: pointer;
+    font-weight: 500;
+    &:hover {
+      color: ${colors.colorLigthText};
+    }
   }
 `;
+
 
