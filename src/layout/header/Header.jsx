@@ -6,7 +6,7 @@ import BurgerMenu from "../../components/burgerMenu";
 import {
   selectIsLoggedIn,
 } from "../../store/user/selectors";
-import logo from "../../assets/icons/LOGO green.svg";
+import logo from "../../assets/icons/lock.jpg";
 import DropDown from "../../components/profileDropDown";
 
 const Header = () => {
