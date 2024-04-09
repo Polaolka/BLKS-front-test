@@ -1,7 +1,3 @@
-import inst from "../../assets/icons/instagram.svg";
-import face from "../../assets/icons/facebook.svg";
-import arrow from "../../assets/icons/contacts_arrow.svg";
-import { NavLink } from "react-router-dom";
 import {
 
   FooterStyled,

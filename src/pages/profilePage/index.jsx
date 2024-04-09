@@ -3,12 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { TextField } from "@mui/material";
 import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { updateUser, updateVolunteer } from "../../store/user/operations";
+import { updateUser } from "../../store/user/operations";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ConfirmationModal } from "../../components/modal";
+
 
 const ProfilePage = () => {
   const errorToast = (message) =>
@@ -23,28 +21,14 @@ const ProfilePage = () => {
   const { role, avatarIMG, name } = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [type, setTypes] = useState([]);
   const [images, setImages] = useState([]);
 
-  const [volunteerInfo, setVolunteerInfo] = useState({
-    specialization: [],
-    phone: "",
-    telegram: "",
-    fbUrl: "",
-  });
 
   const [formDataValues, setFormDataValues] = useState({
     newName: "",
     avatarIMG: "",
   });
 
-  const handleTypeChange = (event, newTypes) => {
-    setTypes(newTypes);
-    setVolunteerInfo((prevData) => ({
-      ...prevData,
-      specialization: newTypes,
-    }));
-  };
 
   const handleInputChange = (e) => {
     const { name, value, files } = e.target;
@@ -57,13 +41,6 @@ const ProfilePage = () => {
     }));
   };
 
-  const handleInfoChange = (e) => {
-    const { name, value } = e.target;
-    setVolunteerInfo((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
 
   const handleSubmitUser = async (e) => {
     e.preventDefault();
@@ -92,28 +69,7 @@ const ProfilePage = () => {
       errorToast(error.response);
     }
   };
-  const handleSubmitVolunteer = async (e) => {
-    e.preventDefault();
-    try {
-      const result = dispatch(updateVolunteer(volunteerInfo));
-      if (result) {
-        successToast();
-        setTypes([]);
-        setVolunteerInfo({
-          phone: "",
-          specialization: [],
-          telegram: "",
-        });
-        document.getElementById("volunteerForm").reset();
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
-    } catch (error) {
-      errorToast(error.response);
-    }
-  };
+
   return (
     <main
       id="page-wrap"
@@ -162,88 +118,8 @@ const ProfilePage = () => {
           </button>
         </div>
       </form>
-      {role === "VOLUNTEER" && (
-        <form
-          id="volunteerForm"
-          onSubmit={handleSubmitVolunteer}
-          className="flex flex-col p-8 gap-8 justify-center w-full smx:w-[500px]"
-        >
-          <div className="flex flex-col gap-4 p-6 bg-white rounded-md">
-            <h2>Ваші контакти</h2>
-            <TextField
-              type="text"
-              label="Телефон"
-              helperText="+3806300000000"
-              variant="outlined"
-              size="small"
-              name="phone"
-              onChange={handleInfoChange}
-            />
-            <TextField
-              type="text"
-              label="Telegram"
-              helperText="@nikname"
-              variant="outlined"
-              size="small"
-              name="telegram"
-              onChange={handleInfoChange}
-            />
-            <TextField
-              type="text"
-              label="Facebook"
-              helperText="https://www.facebook.com/вашнік/"
-              variant="outlined"
-              size="small"
-              name="fbUrl"
-              onChange={handleInfoChange}
-            />
-          </div>
-          <div className="flex flex-col gap-4 p-6 bg-white rounded-md">
-            <h2>Напрямок діяльності</h2>
-            <ToggleButtonGroup
-              value={type}
-              aria-label="Platform"
-              onChange={handleTypeChange}
-              size="medium"
-              orientation="vertical"
-            >
-              <ToggleButton name={"specialization"} value="Дрони">
-                Дрони
-              </ToggleButton>
-              <ToggleButton name={"specialization"} value="Транспорт">
-                Транспорт
-              </ToggleButton>
-              <ToggleButton name={"specialization"} value="Обладнання">
-                Обладнання
-              </ToggleButton>
-              <ToggleButton name={"specialization"} value="Провізія">
-                Провізія
-              </ToggleButton>
-              <ToggleButton name={"specialization"} value="Медицина">
-                Медицина
-              </ToggleButton>
-              <ToggleButton name={"specialization"} value="Реабілітація">
-                Реабілітація
-              </ToggleButton>
-              <ToggleButton name={"specialization"} value="Інше">
-                Інше
-              </ToggleButton>
-            </ToggleButtonGroup>
-          </div>
-          <div className=" flex gap-4 self-center">
-            <button type="submit" className="button-black items-center">
-              Застосувати
-            </button>
-          </div>
-        </form>
-      )}
-      {role === "USER" && (
-        <ConfirmationModal
-          modalButton="Видалити профіль"
-          modalTitle="Ви впевнені?"
-          modalText="Ви більше не зможете зберігати окремі збори, щоб стежити за ними"
-        />
-      )}
+
+
     </main>
   );
 };

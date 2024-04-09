@@ -2,22 +2,15 @@ import { push as Menu } from "react-burger-menu";
 import "./BurgerMenu.css";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useMediaQuery } from "react-responsive";
 import { useState } from "react";
 import {
   selectIsLoggedIn,
-  selectCurrentUser,
 } from "../../store/user/selectors";
 import DropDown from "../../components/profileDropDown";
 
 const BurgerMenu = () => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const { role, id } = useSelector(selectCurrentUser);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  function refreshPage() {
-    window.location.reload(false);
-  }
 
   const handleMenuClick = () => {
     setIsMenuOpen(false);

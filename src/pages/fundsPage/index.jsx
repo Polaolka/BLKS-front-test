@@ -10,16 +10,12 @@ import { AddFundModal } from "../../components/modal";
 
 const FoundsPage = () => {
   const dispatch = useDispatch();
-  const { funds, totalPages, loading } = useSelector((state) => state.funds);
+  const { funds, loading } = useSelector((state) => state.funds);
   const user = useSelector(selectCurrentUser);
 
   useEffect(() => {
     dispatch(fetchFunds());
   }, [dispatch]);
-
-  const handlePageChange = (page) => {
-    dispatch(fetchFunds(page));
-  };
 
   return (
     <main
