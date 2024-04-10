@@ -9,6 +9,7 @@ import {
   selectIsLoggedIn,
 } from "../../store/user/selectors";
 import logo from "../../assets/icons/lock.jpg";
+import logo2 from "../../assets/icons/lock2.jpg";
 import DropDown from "../../components/profileDropDown";
 import { logOut } from "../../store/user/operations";
 
@@ -36,9 +37,12 @@ const Header = () => {
   return (
     <HeaderStyled>
       <div className="flex">
-        <NavLink to="/">
+        {isLoggedIn ? (<NavLink to="/">
           <img className="swing" src={logo} alt="logo" />
-        </NavLink>
+        </NavLink>) : (<NavLink to="/">
+          <img className="swing" src={logo2} alt="logo" />
+        </NavLink>)}
+
       </div>
       {isMobile ? (
         <BurgerMenu />
