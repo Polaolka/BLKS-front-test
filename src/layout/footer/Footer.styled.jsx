@@ -1,11 +1,8 @@
 import styled from "@emotion/styled";
 import { colors, mediaSizes } from "../../components/const";
 export const FooterStyled = styled.footer`
-  padding-top: 20px;
-  padding-bottom: 20px;
-  /* position: fixed;
-  bottom: 0px; */
-
+  padding-top: 16px;
+  padding-bottom: 16px;
 
   & ul {
     display: flex;

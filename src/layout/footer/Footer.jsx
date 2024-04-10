@@ -8,13 +8,14 @@ const Footer = () => {
 
 
   return (
-    <footer className="flex flex-col justify-center bg-grey max-w-[1980px] mx-auto">
+    <footer className="flex justify-center bg-grey fixed bottom-0 w-full mx-auto">
       <FooterStyled>
-        <ul>
+        <ul className=" mx-auto">
           <li>© 2024 </li>
-          <li>
-            <p>
-              Made by{" "}
+          <li className="flex">
+            <p className="mr-5">
+              Made by
+            </p>
               <a
                 href="https://www.linkedin.com/in/polishchuk-olha/"
                 target="_blank"
@@ -23,7 +24,6 @@ const Footer = () => {
               >
                 Olha Polishchuk
               </a>
-            </p>
           </li>
         </ul>
       </FooterStyled>
