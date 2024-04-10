@@ -1,18 +1,18 @@
 {
   "files": {
     "main.css": "/BLKS-front-test/static/css/main.3d9276bd.css",
-    "main.js": "/BLKS-front-test/static/js/main.f06a8098.js",
+    "main.js": "/BLKS-front-test/static/js/main.e53bcf6c.js",
     "static/js/462.f6ad2065.chunk.js": "/BLKS-front-test/static/js/462.f6ad2065.chunk.js",
     "static/js/933.8ea1f69b.chunk.js": "/BLKS-front-test/static/js/933.8ea1f69b.chunk.js",
     "static/media/e-UkraineHead-Regular.woff": "/BLKS-front-test/static/media/e-UkraineHead-Regular.381c53b427de8582b836.woff",
     "index.html": "/BLKS-front-test/index.html",
     "main.3d9276bd.css.map": "/BLKS-front-test/static/css/main.3d9276bd.css.map",
-    "main.f06a8098.js.map": "/BLKS-front-test/static/js/main.f06a8098.js.map",
+    "main.e53bcf6c.js.map": "/BLKS-front-test/static/js/main.e53bcf6c.js.map",
     "462.f6ad2065.chunk.js.map": "/BLKS-front-test/static/js/462.f6ad2065.chunk.js.map",
     "933.8ea1f69b.chunk.js.map": "/BLKS-front-test/static/js/933.8ea1f69b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3d9276bd.css",
-    "static/js/main.f06a8098.js"
+    "static/js/main.e53bcf6c.js"
   ]
 }
