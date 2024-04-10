@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL || "https://test-back-end-blks.onrender.com/api/v1";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "https://test-back-end-blks.onrender.com/api/v0";
 console.log("BASE_URL:", BASE_URL);
 
 const SigninPage = () => (
