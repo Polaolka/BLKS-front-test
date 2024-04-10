@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL || "https://test-back-end-blks.onrender.com/api/v1";
 
 export const instance = axios.create({
   baseURL: BASE_URL,
