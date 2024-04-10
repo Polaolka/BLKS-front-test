@@ -4,11 +4,8 @@ import SharedLayout from "./layout/sharedLayout/SharedLayout";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./store/user/operations";
 import RedirectPage from "./pages/signinPage/RedirectPage";
-import { PrivateRoute } from "./routes/PrivateRoute";
 
 const HomePage = lazy(() => import("./pages/homePage"));
-const FundsPage = lazy(() => import("./pages/fundsPage"));
-const ProfilePage = lazy(() => import("./pages/profilePage"));
 const SigninPage = lazy(() => import("./pages/signinPage"));
 
 function App() {
@@ -26,12 +23,7 @@ function App() {
           ></Route>
           <Route path="/" element={<HomePage />}></Route>
         </Route>
-        <Route path="/funds" element={<FundsPage />}></Route>
         <Route path="/signin" element={<SigninPage />}></Route>
-        <Route
-          path="/profile/:id"
-          element={<PrivateRoute redirectTo="/" element={<ProfilePage />} />}
-        ></Route>
       </Routes>
     </Suspense>
   );

@@ -1,36 +1,34 @@
 import { Dropdown } from "@mui/base/Dropdown";
 import { Menu } from "@mui/base/Menu";
 import { MenuButton as BaseMenuButton } from "@mui/base/MenuButton";
-import { MenuItem as BaseMenuItem, menuItemClasses } from "@mui/base/MenuItem";
 import { styled } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser } from "../../store/user/selectors";
 import { NavLink } from "react-router-dom";
+import { logOut } from "../../store/user/operations";
 
 export default function DropDown() {
+  const dispatch = useDispatch();
   const user = useSelector(selectCurrentUser);
+  console.log(user.name);
 
-  function refreshPage() {
+  const logOuthandle = () => {
+    if (user.id) {
+      dispatch(logOut(user.id));
+    }
     window.location.reload(false);
-  }
+  };
 
   return (
     <Dropdown>
-      <MenuButton>
-        <img src={user.avatarIMG} alt="avatar" className="flex w-8" />
-      </MenuButton>
-      <Menu slots={{ listbox: Listbox }}>
-        <p className=" flex justify-center p-3 text-sm bg-grey rounded-lg">
-          {user.name}
-        </p>
-        <MenuItem>
-          <NavLink to={`/profile/${user.id}`}>Мій профіль</NavLink>
-        </MenuItem>
-        <MenuItem>
-          <NavLink to="/users/logout" onClick={refreshPage}>
+      <MenuButton></MenuButton>
+      <Menu >
+        <div>
+          Привіт, {user.name}
+          <NavLink to="/auth/logout" onClick={logOuthandle}>
             Вийти
           </NavLink>
-        </MenuItem>
+        </div>
       </Menu>
     </Dropdown>
   );
@@ -62,54 +60,7 @@ const grey = {
   900: "#1C2025",
 };
 
-const Listbox = styled("ul")(
-  ({ theme }) => `
-  font-family: inherit;
-  font-size: 0.75rem;
-  box-sizing: border-box;
-  padding: 6px;
-  margin: 12px 0;
-  border-radius: 12px;
-  overflow: auto;
-  outline: 0px;
-  background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-  border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
-  color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-  box-shadow: 0px 4px 30px ${
-    theme.palette.mode === "dark" ? grey[900] : grey[200]
-  };
-  z-index: 1;
-  `
-);
 
-const MenuItem = styled(BaseMenuItem)(
-  ({ theme }) => `
-  list-style: none;
-  padding: 8px;
-  border-radius: 8px;
-  cursor: default;
-  user-select: none;
-
-  &:last-of-type {
-    border-bottom: none;
-  }
-
-  &.${menuItemClasses.focusVisible} {
-    outline: 3px solid ${theme.palette.mode === "dark" ? blue[600] : blue[200]};
-    background-color: ${theme.palette.mode === "dark" ? grey[800] : grey[100]};
-    color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-  }
-
-  &.${menuItemClasses.disabled} {
-    color: ${theme.palette.mode === "dark" ? grey[700] : grey[400]};
-  }
-
-  &:hover:not(.${menuItemClasses.disabled}) {
-    background-color: ${theme.palette.mode === "dark" ? blue[900] : blue[50]};
-    color: ${theme.palette.mode === "dark" ? blue[100] : blue[900]};
-  }
-  `
-);
 
 const MenuButton = styled(BaseMenuButton)(
   ({ theme }) => `

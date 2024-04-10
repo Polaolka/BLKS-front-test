@@ -1,17 +1,37 @@
 import { NavLink } from "react-router-dom";
 import { HeaderStyled } from "./Header.styled";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import BurgerMenu from "../../components/burgerMenu";
 import {
+  selectCurrentUser,
+  selectCurrentUserId,
   selectIsLoggedIn,
 } from "../../store/user/selectors";
 import logo from "../../assets/icons/lock.jpg";
 import DropDown from "../../components/profileDropDown";
+import { logOut } from "../../store/user/operations";
 
 const Header = () => {
+  const dispatch = useDispatch();
   const isMobile = useMediaQuery({ maxWidth: 874 });
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectCurrentUser);
+  const id = useSelector(selectCurrentUserId);
+
+  const uppPageHandler = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
+  const logOuthandle = () => {
+    if (id) {
+      dispatch(logOut(id));
+    }
+    window.location.reload(false);
+  };
 
   return (
     <HeaderStyled>
@@ -24,12 +44,28 @@ const Header = () => {
         <BurgerMenu />
       ) : (
         <div className="flex">
-          <ul className="flex gap-8 pr-8 items-center border-r-2 border-grey">
-            <NavLink to="/users">Хто тут є?</NavLink>
-          </ul>
           <ul className="flex gap-8 pl-8 items-center">
-            {isLoggedIn || <NavLink to="/signin">Увійти</NavLink>}
-            {isLoggedIn && (<DropDown />)}
+            {!isLoggedIn ? (
+              <NavLink
+                className={"menu-item"}
+                onClick={uppPageHandler}
+                to="/signin"
+              >
+                Увійти
+              </NavLink>
+            ) : (
+              <div>
+                Привіт, {user.name}
+                <NavLink
+                  className={"menu-item"}
+                  to="/auth/logout"
+                  onClick={logOuthandle}
+                >
+                  Вийти
+                </NavLink>
+              </div>
+            )}
+            {isLoggedIn && <DropDown />}
           </ul>
         </div>
       )}

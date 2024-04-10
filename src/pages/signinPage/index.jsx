@@ -13,7 +13,7 @@ const SigninPage = () => (
     </div>
     <div className="flex flex-col gap-6 pb-8">
       <a
-        href={`${BASE_URL}/users/auth/google`}
+        href={`${BASE_URL}/auth/google`}
         className="flex gap-6 items-center cursor-pointer"
       >
         <img

@@ -1,15 +1,18 @@
 import { push as Menu } from "react-burger-menu";
 import "./BurgerMenu.css";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
 import { useState } from "react";
-import {
-  selectIsLoggedIn,
-} from "../../store/user/selectors";
+import { selectCurrentUser, selectCurrentUserId, selectIsLoggedIn } from "../../store/user/selectors";
 import DropDown from "../../components/profileDropDown";
+import { logOut } from "../../store/user/operations";
 
 const BurgerMenu = () => {
+  const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const user = useSelector(selectCurrentUser);
+  const id = useSelector(selectCurrentUserId);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuClick = () => {
@@ -29,6 +32,16 @@ const BurgerMenu = () => {
       behavior: "smooth",
     });
   };
+
+  const logOuthandle = () => {
+    if (id) {
+      
+      dispatch(logOut(id));
+    }
+    window.location.reload(false);
+  };
+
+
   return (
     <Menu
       pageWrapId={"page-wrap"}
@@ -41,18 +54,9 @@ const BurgerMenu = () => {
       <ul
         className="flex gap-8 pr-8 items-center border-r-2 border-grey"
         onClick={handleMenuClick}
-      >
-        <NavLink
-          className={"menu-item"}
-          onClick={uppPageHandler}
-          to="/users"
-        >
-          Збори
-        </NavLink>
-        
-      </ul>
+      ></ul>
       <ul className="flex gap-8 pl-8 items-center" onClick={handleMenuClick}>
-        {isLoggedIn || (
+        {!isLoggedIn ? (
           <NavLink
             className={"menu-item"}
             onClick={uppPageHandler}
@@ -60,8 +64,15 @@ const BurgerMenu = () => {
           >
             Увійти
           </NavLink>
+        ) : (
+          <div>
+            Привіт, {user.name}
+          <NavLink to="/auth/logout" onClick={logOuthandle}>
+            Вийти
+          </NavLink>
+          </div>
         )}
-        {isLoggedIn && (<DropDown />)}
+        {isLoggedIn && <DropDown />}
       </ul>
     </Menu>
   );

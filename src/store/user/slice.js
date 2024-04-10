@@ -2,8 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   logOut,
   currentUser,
-  updateUser,
-  updateVolunteer
+  updateUser
 } from './operations';
 
 const initialState = {
@@ -11,14 +10,6 @@ const initialState = {
     id: null,
     email: null,
     name: null,
-    avatarIMG: null,
-    role: null,
-    volunteerInfo: {
-      specialization: [],
-      phone: "",
-      telegram: "",
-      fbUrl: ""
-    }
   },
   error: null,
   isRefreshing: false,
@@ -38,14 +29,6 @@ const userSlice = createSlice({
           id: null,
           email: null,
           name: null,
-          avatarIMG: null,
-          role: null,
-          volunteerInfo: {
-            specialization: [],
-            phone: "",
-            telegram: "",
-            fbUrl: ""
-          }
         };
         state.isLoggedIn = false;
       })
@@ -62,14 +45,6 @@ const userSlice = createSlice({
           id: null,
           email: null,
           name: null,
-          avatarIMG: null,
-          role: null,
-          volunteerInfo: {
-            specialization: [],
-            phone: "",
-            telegram: "",
-            fbUrl: ""
-          }
         };
         state.isRefreshing = false;
       })
@@ -85,18 +60,6 @@ const userSlice = createSlice({
         state.loading = false;
         state.error = payload;
       })
-      .addCase(updateVolunteer.pending, state => {
-        state.isRefreshing = true;
-      })
-      .addCase(updateVolunteer.fulfilled, (state, { payload }) => {
-        state.user = payload;
-        state.isLoggedIn = true;
-        state.isRefreshing = false;
-      })
-      .addCase(updateVolunteer.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload;
-      });
   },
 });
 

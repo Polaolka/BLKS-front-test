@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "https://requesty.com.ua/api/v1";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const instance = axios.create({
   baseURL: BASE_URL,
@@ -26,18 +26,18 @@ instance.interceptors.response.use(
     if (error.response.status === 401) {
       const storedRefreshToken = localStorage.getItem('refreshToken');
       try {
-        const { data } = await instance.post("/users/refresh", {
+        const { data } = await instance.post("/auth/refresh", {
           refreshToken: storedRefreshToken,
         });
+        console.log(data);
+        setToken(data.accessToken);
 
-        setToken(data.data.accessToken);
-
-        localStorage.setItem('accessToken', data.data.accessToken);
-        localStorage.setItem('refreshToken', data.data.refreshToken);
+        localStorage.setItem('accessToken', data.accessToken);
+        localStorage.setItem('refreshToken', data.refreshToken);
 
         const updatedConfig = { ...error.config };
 
-        updatedConfig.headers.Authorization = `Bearer ${data.data.accessToken}`;
+        updatedConfig.headers.Authorization = `Bearer ${data.accessToken}`;
 
         if (error.config.url !== "/users/current-user") {
           return instance(error.config);
@@ -50,7 +50,7 @@ instance.interceptors.response.use(
     if (error.response.status === 403 && storedAccessToken) {
       localStorage.setItem('accessToken', '');
       localStorage.setItem('refreshToken', '');
-      // window.location.replace(`${process.env.REACT_APP_BASEURL}/signin`);
+      window.location.replace(`${process.env.REACT_APP_BASEURL}/signin`);
     }
     return Promise.reject(error);
   }
@@ -67,8 +67,8 @@ export const currentUser = createAsyncThunk(
       if (!accessToken) {
         return rejectWithValue("Unable to fetch user");
       }
-      const result = await instance.get("/users/current-user");
-      return result.data.data;
+      const result = await instance.get("/auth/current");
+      return result.data;
     } catch ({ response }) {
       const { status, data } = response;
       const error = {
@@ -100,33 +100,13 @@ export const updateUser = createAsyncThunk(
     }
   }
 );
-export const updateVolunteer = createAsyncThunk(
-  "user/updateVolunteer",
-  async (body, { rejectWithValue, getState }) => {
-    try {
-      const accessToken = localStorage.getItem('accessToken')
-      setToken(accessToken);
-      if (!accessToken) {
-        return rejectWithValue("Unable to fetch user");
-      }
-      const result = await instance.patch("/volunteers/update-volunteer", body);
-      return result.data.data;
-    } catch ({ response }) {
-      const { status, data } = response;
-      const error = {
-        status,
-        message: data.message,
-      };
-      return rejectWithValue(error);
-    }
-  }
-);
 
 export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
   try {
-    await instance.post("/users/logout");
-    document.cookie = `accessToken=""; path=/;`;
-    document.cookie = `refreshToken=""; path=/;`;
+    console.log("!!!logout");
+    await instance.post("/auth/logout");
+    localStorage.setItem('accessToken', '');
+    localStorage.setItem('refreshToken', '');
     clearToken();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
