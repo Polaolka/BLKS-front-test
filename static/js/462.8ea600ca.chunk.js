@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkBLKS_front_test=self.webpackChunkBLKS_front_test||[]).push([[462],{2462:(e,t,s)=>{s.r(t),s.d(t,{default:()=>c});var a=s(184);const c=()=>(0,a.jsx)("main",{id:"page-wrap",className:"flex flex-col items-center max-w-[1980px] mx-auto "})}}]);
+//# sourceMappingURL=462.8ea600ca.chunk.js.map
