@@ -10,7 +10,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import funds from "./funds/slice";
 import { userReducer } from './user/slice';
 
 const authPersistConfig = {
@@ -22,7 +21,6 @@ const authPersistConfig = {
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, userReducer),
-    funds,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

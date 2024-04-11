@@ -13,6 +13,7 @@ const BurgerMenu = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const user = useSelector(selectCurrentUser);
   const id = useSelector(selectCurrentUserId);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleMenuClick = () => {
@@ -35,7 +36,6 @@ const BurgerMenu = () => {
 
   const logOuthandle = () => {
     if (id) {
-      
       dispatch(logOut(id));
     }
     window.location.reload(false);
@@ -51,10 +51,6 @@ const BurgerMenu = () => {
       onOpen={menuOpen}
       onClose={menuClose}
     >
-      <ul
-        className="flex gap-8 pr-8 items-center border-r-2 border-grey"
-        onClick={handleMenuClick}
-      ></ul>
       <ul className="flex gap-8 pl-8 items-center" onClick={handleMenuClick}>
         {!isLoggedIn ? (
           <NavLink
