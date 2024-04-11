@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 import {
   logOut,
   currentUser,
-  updateUser
 } from './operations';
 
 const initialState = {
@@ -47,18 +46,6 @@ const userSlice = createSlice({
           name: null,
         };
         state.isRefreshing = false;
-      })
-      .addCase(updateUser.pending, state => {
-        state.isRefreshing = true;
-      })
-      .addCase(updateUser.fulfilled, (state, { payload }) => {
-        state.user = payload;
-        state.isLoggedIn = true;
-        state.isRefreshing = false;
-      })
-      .addCase(updateUser.rejected, (state, { payload }) => {
-        state.loading = false;
-        state.error = payload;
       })
   },
 });

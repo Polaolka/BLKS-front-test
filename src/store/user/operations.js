@@ -39,7 +39,7 @@ instance.interceptors.response.use(
 
         updatedConfig.headers.Authorization = `Bearer ${data.accessToken}`;
 
-        if (error.config.url !== "/users/current-user") {
+        if (error.config.url !== "/auth/current") {
           return instance(error.config);
         }
         return instance(updatedConfig);
@@ -50,7 +50,7 @@ instance.interceptors.response.use(
     if (error.response.status === 403 && storedAccessToken) {
       localStorage.setItem('accessToken', '');
       localStorage.setItem('refreshToken', '');
-      window.location.replace(`${process.env.REACT_APP_BASEURL}/signin`);
+      // window.location.replace(`${process.env.REACT_APP_BASEURL}/signin`);
     }
     return Promise.reject(error);
   }
@@ -79,31 +79,9 @@ export const currentUser = createAsyncThunk(
     }
   }
 );
-export const updateUser = createAsyncThunk(
-  "user/update",
-  async (body, { rejectWithValue, getState }) => {
-    try {
-      const accessToken = localStorage.getItem('accessToken')
-      setToken(accessToken);
-      if (!accessToken) {
-        return rejectWithValue("Unable to fetch user");
-      }
-      const result = await instance.patch("/users/update-user", body);
-      return result.data.data;
-    } catch ({ response }) {
-      const { status, data } = response;
-      const error = {
-        status,
-        message: data.message,
-      };
-      return rejectWithValue(error);
-    }
-  }
-);
 
 export const logOut = createAsyncThunk("user/logout", async (_, thunkAPI) => {
   try {
-    console.log("!!!logout");
     await instance.post("/auth/logout");
     localStorage.setItem('accessToken', '');
     localStorage.setItem('refreshToken', '');
