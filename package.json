@@ -2,7 +2,7 @@
   "name": "BLKS-front-test",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://polaolka.github.io/BLKS-front-test/",
+  "homepage": "https://polaolka.github.io/BLKS-front-test",
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
