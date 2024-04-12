@@ -31,7 +31,7 @@ const Header = () => {
     if (id) {
       dispatch(logOut(id));
     }
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   return (
@@ -60,13 +60,12 @@ const Header = () => {
             ) : (
               <div>
                 Привіт, {user.name}
-                <NavLink
+                <button
                   className={"menu-item"}
-                  to="/auth/logout"
                   onClick={logOuthandle}
                 >
                   Вийти
-                </NavLink>
+                </button>
               </div>
             )}
             {isLoggedIn && <DropDown />}

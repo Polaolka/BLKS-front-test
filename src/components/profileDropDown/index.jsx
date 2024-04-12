@@ -2,7 +2,6 @@ import { Dropdown } from "@mui/base/Dropdown";
 import { Menu } from "@mui/base/Menu";
 import { useSelector, useDispatch } from "react-redux";
 import { selectCurrentUser, selectCurrentUserId } from "../../store/user/selectors";
-import { NavLink } from "react-router-dom";
 import { logOut } from "../../store/user/operations";
 
 export default function DropDown() {
@@ -14,7 +13,7 @@ export default function DropDown() {
     if (id) {
       dispatch(logOut(id));
     }
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   return (
@@ -22,9 +21,9 @@ export default function DropDown() {
       <Menu >
         <div>
           Привіт, {user.name}
-          <NavLink to="/auth/logout" onClick={logOuthandle}>
+          <button onClick={logOuthandle}>
             Вийти
-          </NavLink>
+          </button>
         </div>
       </Menu>
     </Dropdown>

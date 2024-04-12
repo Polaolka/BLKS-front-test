@@ -25,11 +25,22 @@ const userSlice = createSlice({
     builder
       .addCase(logOut.fulfilled, state => {
         state.user = {
-          id: null,
+          _id: null,
           email: null,
           name: null,
         };
         state.isLoggedIn = false;
+      })
+      .addCase(logOut.pending, state => {
+        state.isLoggedIn = false;
+      })
+      .addCase(logOut.rejected, state => {
+        state.isLoggedIn = false;
+        state.user = {
+          _id: null,
+          email: null,
+          name: null,
+        };
       })
       .addCase(currentUser.pending, state => {
         state.isRefreshing = true;

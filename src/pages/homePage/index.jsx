@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { currentUser } from '../../store/user/operations';
+import { selectIsLoggedIn } from '../../store/user/selectors';
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const accessToken = urlParams.get('accessToken');
@@ -12,7 +15,6 @@ const HomePage = () => {
     if (accessToken && refreshToken) {
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);
-      setIsLoggedIn(true);
       dispatch(currentUser());
       window.history.replaceState(null, null, window.location.pathname);
     }

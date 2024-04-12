@@ -38,7 +38,6 @@ const BurgerMenu = () => {
     if (id) {
       dispatch(logOut(id));
     }
-    window.location.reload(false);
   };
 
 
@@ -63,9 +62,9 @@ const BurgerMenu = () => {
         ) : (
           <div>
             Привіт, {user.name}
-          <NavLink to="/auth/logout" onClick={logOuthandle}>
+          <button onClick={logOuthandle}>
             Вийти
-          </NavLink>
+          </button>
           </div>
         )}
         {isLoggedIn && <DropDown />}
