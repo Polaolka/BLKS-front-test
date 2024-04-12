@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import SharedLayout from "./layout/sharedLayout/SharedLayout";
 import { useDispatch } from "react-redux";
 import { currentUser } from "./store/user/operations";
-import RedirectPage from "./pages/signinPage/RedirectPage";
 
 const HomePage = lazy(() => import("./pages/homePage"));
 const SigninPage = lazy(() => import("./pages/signinPage"));
@@ -17,10 +16,6 @@ function App() {
     <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route
-            path="/handleAuth"
-            element={<RedirectPage />}
-          ></Route>
           <Route path="/" element={<HomePage />}></Route>
         </Route>
         <Route path="/signin" element={<SigninPage />}></Route>
