@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route
-            path="/:accessToken/:refreshToken"
+            path="/handleAuth"
             element={<RedirectPage />}
           ></Route>
           <Route path="/" element={<HomePage />}></Route>
